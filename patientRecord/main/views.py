@@ -13,9 +13,9 @@ def home(request):
         q = request.GET['q']
         data = Patient.objects.filter(Q(full_name__icontains=q) | Q(
             mobile_no__icontains=q) | Q(email__icontains=q))
-    # paginator = Paginator(data, 1)
-    # page_number = request.GET.get('page', 1)
-    # data = paginator.get_page(page_number)
+    paginator = Paginator(data, 10)
+    page_number = request.GET.get('page', 1)
+    data = paginator.get_page(page_number)
     return render(request, 'home.html', {'data': data})
 
 # Add Patient
